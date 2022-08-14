@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  min-width: 50vw;
+  margin: 5rem 0rem;
+  padding: 2rem;
+  background-color: rgb(240, 238, 238);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+form .pair {
+  padding: 0.5rem;
+}
+
+table {
+  width: 80vw;
+  padding: 2rem;
+  background-color: rgb(240, 238, 238);
+  border-radius: 10px;
+}
+
+td {
+  border: 1px solid rgb(199, 143, 143);
+  padding: 1rem;
+}
