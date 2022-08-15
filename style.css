@@ -7,17 +7,13 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
 }
 
 form {
-  display: flex;
-  justify-content: center;
-  min-width: 50vw;
-  margin: 5rem 0rem;
+  margin-bottom: 5rem;
   padding: 2rem;
   background-color: rgb(240, 238, 238);
   border-radius: 10px;
@@ -39,4 +35,9 @@ table {
 td {
   border: 1px solid rgb(199, 143, 143);
   padding: 1rem;
+}
+
+.modal-btn {
+  padding: 0.5rem 2rem;
+  margin: 4rem 0rem;
 }

@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 class Book {
   constructor(title, author, pages, isRead) {
@@ -15,6 +15,15 @@ Book.prototype.info = function () {
   }`;
 };
 
+function testing() {
+  let form = document.querySelector("form");
+  if (form.style.display === "none") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none"
+  }
+}
+
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   const title = document.querySelector("#title").value;
@@ -25,6 +34,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   addToLibrary(new Book(title, author, pages, isRead));
 
   displayAllBooks();
+  clearAllFields();
 });
 
 function addToLibrary(book) {
@@ -36,15 +46,40 @@ function displayAllBooks() {
   list.innerHTML = `<tr><th>Title</th><th>Author</th><th>Pages</th><th>Finished</th><th>Delete?</th></tr>`;
   for (let book of myLibrary) {
     const row = document.createElement("tr");
-    row.innerHTML = 
-    `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.isRead}</td><td><button class="delete">Delete</button></td>`;
+    row.classList.add("row");
+    row.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.isRead}</td><td><button class="delete">Delete</button></td>`;
     list.appendChild(row);
   }
 }
 
-function deleteFromLibrary(/* ??? */) {
+function clearAllFields() {
+  document.querySelector("#title").value = "";
+  document.querySelector("#author").value = "";
+  document.querySelector("#pages").value = "";
+  document.querySelector("#read").checked = 0;
+}
 
-  // given some unique identifier, we could delete
-  //  a particular book from the myLibrary.
-  displayAllBooks();
+document.querySelector("table").addEventListener("click", function (e) {
+  deleteFromLibrary(e.target);
+});
+
+function deleteFromLibrary(el) {
+  if (el.classList.contains("delete")) {
+    el.parentElement.parentElement.remove();
+    myLibrary = [];
+
+    const table = document.querySelector("table");
+    const tableRows = document.querySelectorAll(".row");
+    for (let item of tableRows) {
+      addToLibrary(
+        new Book(
+          item.children[0].innerText,
+          item.children[1].innerText,
+          item.children[2].innerText,
+          item.children[3].innerText
+        )
+      );
+    }
+    displayAllBooks();
+  }
 }
