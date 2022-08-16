@@ -22,7 +22,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   const pages = document.querySelector("#pages").value;
   const isRead = document.querySelector("#read").checked;
 
-  addToLibrary(new Book(title, author, pages, (isRead ? 1 : 0)));
+  addToLibrary(new Book(title, author, pages, (isRead ? "read" : "not read")));
 
   displayAllBooks();
   clearAllFields();
@@ -82,19 +82,19 @@ function deleteFromLibrary(el) {
 
 function switchRead(el) {
   if (el.classList.contains("is-read")) {
-    if (el.innerHTML == 1) {
-      el.innerHTML = 0;
-    } else if (el.innerHTML == 0) {
-      el.innerHTML = 1;
+    if (el.innerHTML == "read") {
+      el.innerHTML = "not read";
+    } else if (el.innerHTML == "not read") {
+      el.innerHTML = "read";
     }
     updateArray();
     displayAllBooks();
   }
 }
 
-// add 2 books manually
-addToLibrary(new Book("In Search of Lost Time", "Marcel Proust", 543, 1));
-addToLibrary(new Book("Ulysses", "James Joyce", 1354, 0));
+// add 2 books manually though page numbers may not be accurate
+addToLibrary(new Book("In Search of Lost Time", "Marcel Proust", 543, "read"));
+addToLibrary(new Book("Ulysses", "James Joyce", 1354, "not read"));
 displayAllBooks();
 
 // MODAL
@@ -108,10 +108,8 @@ modalBtn.onclick = function () {
 closeBtn.onclick = function () {
   modal.style.display = "none";
 };
-window.onclick = function(e){
-  if(e.target == modal){
-    modal.style.display = "none"
+window.onclick = function (e) {
+  if (e.target == modal) {
+    modal.style.display = "none";
   }
-}
-
-
+};
