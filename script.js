@@ -22,7 +22,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   const pages = document.querySelector("#pages").value;
   const isRead = document.querySelector("#read").checked;
 
-  addToLibrary(new Book(title, author, pages, isRead));
+  addToLibrary(new Book(title, author, pages, (isRead ? 1 : 0)));
 
   displayAllBooks();
   clearAllFields();
@@ -33,13 +33,29 @@ function addToLibrary(book) {
 }
 
 function displayAllBooks() {
-  const list = document.querySelector("table");
-  list.innerHTML = `<tr><th>Title</th><th>Author</th><th>Pages</th><th>Finished</th><th>Delete?</th></tr>`;
+  const table = document.querySelector("table");
+  table.innerHTML = `<tr><th>Title</th><th>Author</th><th>Pages</th><th>Finished</th><th>Delete?</th></tr>`;
   for (let book of myLibrary) {
     const row = document.createElement("tr");
     row.classList.add("row");
-    row.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.isRead}</td><td><button class="delete">Delete</button></td>`;
-    list.appendChild(row);
+    row.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td class="is-read">${book.isRead}</td><td><button class="delete">Delete</button></td>`;
+    table.appendChild(row);
+  }
+}
+
+function updateArray() {
+  myLibrary = [];
+  const table = document.querySelector("table");
+  const tableRows = document.querySelectorAll(".row");
+  for (let item of tableRows) {
+    addToLibrary(
+      new Book(
+        item.children[0].innerHTML,
+        item.children[1].innerHTML,
+        item.children[2].innerHTML,
+        item.children[3].innerHTML
+      )
+    );
   }
 }
 
@@ -52,39 +68,33 @@ function clearAllFields() {
 
 document.querySelector("table").addEventListener("click", function (e) {
   deleteFromLibrary(e.target);
+  switchRead(e.target);
 });
 
 function deleteFromLibrary(el) {
   if (el.classList.contains("delete")) {
     el.parentElement.parentElement.remove();
-    myLibrary = [];
 
-    const table = document.querySelector("table");
-    const tableRows = document.querySelectorAll(".row");
-    for (let item of tableRows) {
-      addToLibrary(
-        new Book(
-          item.children[0].innerText,
-          item.children[1].innerText,
-          item.children[2].innerText,
-          item.children[3].innerText
-        )
-      );
-    }
+    updateArray();
     displayAllBooks();
   }
 }
 
-
-
-function switchRead() {
-  
+function switchRead(el) {
+  if (el.classList.contains("is-read")) {
+    if (el.innerHTML == 1) {
+      el.innerHTML = 0;
+    } else if (el.innerHTML == 0) {
+      el.innerHTML = 1;
+    }
+    updateArray();
+    displayAllBooks();
+  }
 }
 
-
 // add 2 books manually
-addToLibrary(new Book("11", "22", 33, 1));
-addToLibrary(new Book("44", "55", 66, 0));
+addToLibrary(new Book("In Search of Lost Time", "Marcel Proust", 543, 1));
+addToLibrary(new Book("Ulysses", "James Joyce", 1354, 0));
 displayAllBooks();
 
 // MODAL
@@ -98,3 +108,10 @@ modalBtn.onclick = function () {
 closeBtn.onclick = function () {
   modal.style.display = "none";
 };
+window.onclick = function(e){
+  if(e.target == modal){
+    modal.style.display = "none"
+  }
+}
+
+
