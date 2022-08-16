@@ -15,15 +15,6 @@ Book.prototype.info = function () {
   }`;
 };
 
-function testing() {
-  let form = document.querySelector("form");
-  if (form.style.display === "none") {
-    form.style.display = "block";
-  } else {
-    form.style.display = "none"
-  }
-}
-
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   const title = document.querySelector("#title").value;
@@ -83,3 +74,27 @@ function deleteFromLibrary(el) {
     displayAllBooks();
   }
 }
+
+
+
+function switchRead() {
+  
+}
+
+
+// add 2 books manually
+addToLibrary(new Book("11", "22", 33, 1));
+addToLibrary(new Book("44", "55", 66, 0));
+displayAllBooks();
+
+// MODAL
+let modalBtn = document.querySelector(".modal-btn");
+let modal = document.querySelector(".modal");
+let closeBtn = document.querySelector(".close-btn");
+
+modalBtn.onclick = function () {
+  modal.style.display = "block";
+};
+closeBtn.onclick = function () {
+  modal.style.display = "none";
+};
