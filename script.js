@@ -22,8 +22,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   const pages = document.querySelector("#pages").value;
   const isRead = document.querySelector("#read").checked;
 
-  addToLibrary(new Book(title, author, pages, (isRead ? "read" : "not read")));
-
+  addToLibrary(new Book(title, author, pages, isRead ? "read" : "not read"));
   displayAllBooks();
   clearAllFields();
 });
