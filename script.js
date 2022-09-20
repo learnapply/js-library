@@ -91,7 +91,7 @@ function switchRead(el) {
   }
 }
 
-// add 2 books manually though page numbers may not be accurate
+// add 2 books manually though page numbers may not be accurate // testing git on new computer
 addToLibrary(new Book("In Search of Lost Time", "Marcel Proust", 543, "read"));
 addToLibrary(new Book("Ulysses", "James Joyce", 1354, "not read"));
 displayAllBooks();
